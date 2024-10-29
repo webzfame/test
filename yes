@@ -4,9 +4,6 @@ local RunService = game:GetService("RunService")
 local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 
--- Variable to track if teleportation is enabled
-local teleportEnabled = true
-
 -- Function to find the CoinContainer
 local function findCoinContainer()
     for _, child in pairs(workspace:GetChildren()) do
@@ -52,7 +49,7 @@ local isTeleporting = false
 
 -- Function to teleport to a nearby coin or a random coin
 local function teleportToNearbyOrRandomCoin()
-    if not teleportEnabled or isTeleporting then return end
+    if isTeleporting then return end
     local nearbyRadius = 50 -- Adjust this value to change the "nearby" distance
     local nearbyCoin = findNearestCoin(nearbyRadius)
     if nearbyCoin then
@@ -107,31 +104,6 @@ local function createGUI()
     Title.Font = Enum.Font.SourceSansBold
     Title.Parent = Frame
 
-    local ToggleButton = Instance.new("TextButton")
-    ToggleButton.Size = UDim2.new(0.8, 0, 0, 40)
-    ToggleButton.Position = UDim2.new(0.1, 0, 0.5, 0)
-    ToggleButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
-    ToggleButton.Text = "Teleport OFF"
-    ToggleButton.TextColor3 = Color3.new(1, 1, 1)
-    ToggleButton.TextSize = 14
-    ToggleButton.Font = Enum.Font.SourceSansBold
-    ToggleButton.Parent = Frame
-
-    -- Function to toggle teleportation
-    local function toggleTeleport()
-        teleportEnabled = not teleportEnabled
-        if teleportEnabled then
-            ToggleButton.Text = "Teleport ON"
-            ToggleButton.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
-        else
-            ToggleButton.Text = "Teleport OFF"
-            ToggleButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
-        end
-    end
-
-    -- Connect the toggle button
-    ToggleButton.MouseButton1Click:Connect(toggleTeleport)
-
     return ScreenGui
 end
 
@@ -152,9 +124,9 @@ player.CharacterAdded:Connect(onCharacterAdded)
 
 -- Start the continuous teleportation loop
 RunService.Heartbeat:Connect(function()
-    if teleportEnabled and character and character:FindFirstChild("HumanoidRootPart") then
+    if character and character:FindFirstChild("HumanoidRootPart") then
         teleportToNearbyOrRandomCoin()
     end
 end)
 
-print("MM2 Candy Auto Farm script with persistent GUI and fixed toggle loaded.")
+print("MM2 Candy Auto Farm script with persistent GUI and always enabled teleportation loaded.")
