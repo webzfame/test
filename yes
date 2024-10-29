@@ -119,7 +119,7 @@ local function createGUI()
 
     -- Function to toggle teleportation
     local function toggleTeleport()
-        teleportEnabled = teleportEnabled
+        teleportEnabled = ON
         if teleportEnabled then
             ToggleButton.Text = "Teleport ON"
             ToggleButton.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
