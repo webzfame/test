@@ -5,7 +5,7 @@ local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 
 -- Variable to track if teleportation is enabled
-local teleportEnabled = true
+local teleportEnabled = false
 
 -- Function to find the CoinContainer
 local function findCoinContainer()
@@ -84,7 +84,7 @@ end
 -- Function to create GUI
 local function createGUI()
     local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Name = "MM2CandyAutoFarmGUI"
+    ScreenGui.Name = "nate autofarm"
     ScreenGui.ResetOnSpawn = false
     ScreenGui.Parent = player.PlayerGui
 
@@ -101,7 +101,7 @@ local function createGUI()
     local Title = Instance.new("TextLabel")
     Title.Size = UDim2.new(1, 0, 0, 30)
     Title.BackgroundTransparency = 1
-    Title.Text = "MM2 Candy Auto Farm"
+    Title.Text = "nate autofarm"
     Title.TextColor3 = Color3.new(1, 1, 1)
     Title.TextSize = 18
     Title.Font = Enum.Font.SourceSansBold
@@ -119,7 +119,7 @@ local function createGUI()
 
     -- Function to toggle teleportation
     local function toggleTeleport()
-        teleportEnabled = not teleportEnabled
+        teleportEnabled = teleportEnabled
         if teleportEnabled then
             ToggleButton.Text = "Teleport ON"
             ToggleButton.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
